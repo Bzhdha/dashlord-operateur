@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: init
-        uses: "SocialGouv/dashlord-actions/init@main"
+        uses: "dashlord-actions/init@main"
         with:
           url: ${{ github.event.inputs.url }}
 
@@ -60,7 +60,7 @@ jobs:
       - name: Déclaration a11y
         continue-on-error: true
         timeout-minutes: 10
-        uses: "socialgouv/dashlord-actions/declaration-a11y@v1"
+        uses: "dashlord-actions/declaration-a11y@v1"
         if: ${{ matrix.sites.tools['declaration-a11y'] }}
         with:
           url: ${{ matrix.sites.url }}
@@ -68,7 +68,7 @@ jobs:
 
       - name: Wappalyzer scan
         if: ${{ matrix.sites.tools.wappalyzer }}
-        uses: "socialgouv/wappalyzer-action@master"
+        uses: "wappalyzer-action@master"
         continue-on-error: true
         timeout-minutes: 10
         with:
@@ -91,7 +91,7 @@ jobs:
         if: ${{ matrix.sites.tools.lighthouse }}
         continue-on-error: true
         timeout-minutes: 20
-        uses: SocialGouv/dashlord-actions/lhci@v1
+        uses: dashlord-actions/lhci@v1
         with:
           url: "${{ join(matrix.sites.subpages, ',') }}"
 
@@ -100,7 +100,7 @@ jobs:
         continue-on-error: true
         id: http
         timeout-minutes: 10
-        uses: SocialGouv/httpobs-action@master
+        uses: httpobs-action@master
         with:
           url: "${{ matrix.sites.url }}"
           output: "scans/http.json"
@@ -109,7 +109,7 @@ jobs:
         if: steps.http.outcome=='failure'
         continue-on-error: true
         timeout-minutes: 10
-        uses: SocialGouv/httpobs-action@master
+        uses: httpobs-action@master
         with:
           url: "${{ matrix.sites.url }}"
           output: "scans/http.json"
@@ -118,7 +118,7 @@ jobs:
         if: ${{ matrix.sites.tools.thirdparties }}
         continue-on-error: true
         timeout-minutes: 10
-        uses: SocialGouv/thirdparties-action@master
+        uses: thirdparties-action@master
         id: thirdparties
         with:
           url: "${{ matrix.sites.url }}"
@@ -126,7 +126,7 @@ jobs:
 
       - name: Déclaration RGPD
         continue-on-error: true
-        uses: SocialGouv/dashlord-actions/declaration-rgpd@v1
+        uses: dashlord-actions/declaration-rgpd@v1
         if: ${{ matrix.sites.tools['declaration-rgpd'] }}
         with:
           thirdparties: ${{ steps.thirdparties.outputs.json }}
@@ -167,7 +167,7 @@ jobs:
         if: ${{ matrix.sites.tools.nuclei }}
         continue-on-error: true
         timeout-minutes: 10
-        uses: "SocialGouv/dashlord-nuclei-action@master"
+        uses: "dashlord-nuclei-action@master"
         with:
           url: ${{ matrix.sites.url }}
           output: "scans/nuclei.log"
@@ -243,7 +243,7 @@ jobs:
           output: scans/codescanalerts.json
           
 
-      - uses: SocialGouv/dashlord-actions/save@main
+      - uses: dashlord-actions/save@main
         with:
           url: ${{ matrix.sites.url }}
 
