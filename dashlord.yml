@@ -1,10 +1,8 @@
-title: DashLord opérateur beta.gouv.fr
+title: DashLord fork opérateur beta.gouv.fr
 description: Bonnes pratiques techniques
-entity: République Française
-footer: Powered by BetaGouv
-marianne: true
-matomoId: 234
-matomoUrl: https://stats.data.gouv.fr
+entity: Niji
+footer: Powered by Niji
+marianne: false
 tools:
   screenshot: true
   lighthouse: true
